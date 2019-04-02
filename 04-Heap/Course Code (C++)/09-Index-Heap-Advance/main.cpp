@@ -100,9 +100,13 @@ public:
         Item ret = data[indexes[1]];
         swap( indexes[1] , indexes[count] );
         reverse[indexes[count]] = 0;
-        reverse[indexes[1]] = 1;
         count--;
-        shiftDown(1);
+
+        if(count){
+            reverse[indexes[1]] = 1;
+            shiftDown(1);
+        }
+
         return ret;
     }
 
@@ -113,9 +117,13 @@ public:
         int ret = indexes[1] - 1;
         swap( indexes[1] , indexes[count] );
         reverse[indexes[count]] = 0;
-        reverse[indexes[1]] = 1;
         count--;
-        shiftDown(1);
+
+        if(count) {
+            reverse[indexes[1]] = 1;
+            shiftDown(1);
+        }
+
         return ret;
     }
 
@@ -161,9 +169,8 @@ public:
 
         // 有了 reverse 之后,
         // 我们可以非常简单的通过reverse直接定位索引i在indexes中的位置
-        int j = reverse[i];
-        shiftUp( j );
-        shiftDown( j );
+        shiftUp( reverse[i] );
+        shiftDown( reverse[i] );
     }
 
     // 测试索引堆中的索引数组index和反向数组reverse
